@@ -14,8 +14,8 @@ program
   .parse(process.argv);
 
 var hbsOptions = {
-    extname: 'hbs',
-    partialRegex: /^_/
+  extname: 'hbs',
+  partialRegex: /^_/
 };
 
 // create a bundle function of type `.pages`
@@ -74,7 +74,7 @@ resolve(options.root, {
       fs.writeFileSync(file, js, 'utf8');
     });
     build.files(bundles[name], {
-        destination: options.build + '/' + name
+      destination: options.build + '/' + name
     })
       .use('images', build.plugins.symlink())
       .use('files', build.plugins.symlink())
