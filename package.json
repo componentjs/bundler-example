@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/componentjs/bundler-example",
   "devDependencies": {
+    "commander": "^2.7.1",
     "component-builder": "^1.2.1",
     "component-builder-handlebars": "^0.4.0",
     "component-bundler": "^0.0.4",

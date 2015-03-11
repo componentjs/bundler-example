@@ -1,11 +1,17 @@
 var fs = require('fs');
 var path = require('path');
 
+var program = require('commander');
 var build = require('component-builder');
 var resolve = require('component-resolver');
 var bundler = require('component-bundler');
 var mkdir = require('mkdirp');
 var hbs = require('component-builder-handlebars');
+
+program
+  .version('0.1.0')
+  .option('-s, --standalone', 'Build standalone bundles')
+  .parse(process.argv);
 
 var hbsOptions = {
     extname: 'hbs',
@@ -53,10 +59,17 @@ resolve(options.root, {
       if (!js) return;
       if (err) throw err;
 
+      var umd = program.standalone;
+
       js = hbs.includeRuntime() + js; // add the handlebars runtime helper
       var file = path.join(options.build, name + '/build.js');
       mkdir.sync(options.build + '/' + name);
-      js = build.scripts.require + js; // add require impl to boot component
+      if (umd) {
+        js = build.scripts.umd(name, name, js);
+      } else {
+        js = build.scripts.require + js; // add require impl to boot component
+      }
+
 
       fs.writeFileSync(file, js, 'utf8');
     });
