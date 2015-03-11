@@ -1,0 +1,31 @@
+{
+  "name": "bundler-example",
+  "version": "0.1.0",
+  "description": "A simple test of the bundler functionality",
+  "main": "null",
+  "scripts": {
+    "test": "make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/componentjs/bundler-example.git"
+  },
+  "keywords": [
+    "component",
+    "componentjs",
+    "bundler",
+    "plugins"
+  ],
+  "author": "sankargorthi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/componentjs/bundler-example/issues"
+  },
+  "homepage": "https://github.com/componentjs/bundler-example",
+  "devDependencies": {
+    "component-builder": "^1.2.1",
+    "component-bundler": "^0.0.4",
+    "component-resolver": "^1.2.8",
+    "mkdirp": "^0.5.0"
+  }
+}
