@@ -3,8 +3,8 @@ var path = require('path');
 
 var build = require('component-builder');
 var resolve = require('component-resolver');
+var bundler = require('component-bundler');
 var mkdir = require('mkdirp');
-var bundler = require('../../index');
 
 // create a bundle function of type `.pages`
 // based on the `.locals` of a specific `component.json`
