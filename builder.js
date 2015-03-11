@@ -5,6 +5,12 @@ var build = require('component-builder');
 var resolve = require('component-resolver');
 var bundler = require('component-bundler');
 var mkdir = require('mkdirp');
+var hbs = require('component-builder-handlebars');
+
+var hbsOptions = {
+    extname: 'hbs',
+    partialRegex: /^_/
+};
 
 // create a bundle function of type `.pages`
 // based on the `.locals` of a specific `component.json`
@@ -41,14 +47,17 @@ resolve(options.root, {
     });
     build.scripts(bundles[name])
     .use('scripts', build.plugins.js())
+    .use('templates', build.plugins.string())
+    .use('hbs', hbs(hbsOptions))
     .build(function (err, js) {
       if (!js) return;
       if (err) throw err;
-      if (name === json.locals[0]) {
-        js = build.scripts.require + js; // add require impl to boot component
-      }
+
+      js = hbs.includeRuntime() + js; // add the handlebars runtime helper
       var file = path.join(options.build, name + '/build.js');
       mkdir.sync(options.build + '/' + name);
+      js = build.scripts.require + js; // add require impl to boot component
+
       fs.writeFileSync(file, js, 'utf8');
     });
     build.files(bundles[name], {
