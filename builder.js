@@ -33,6 +33,7 @@ resolve(options.root, {
     .use('styles', build.plugins.css())
     .use('styles', build.plugins.urlRewriter())
     .build(function (err, css) {
+      if (!css) return;
       if (err) throw err;
       var file = path.join(options.build, name + '/build.css');
       mkdir.sync(options.build + '/' + name);
@@ -41,6 +42,7 @@ resolve(options.root, {
     build.scripts(bundles[name])
     .use('scripts', build.plugins.js())
     .build(function (err, js) {
+      if (!js) return;
       if (err) throw err;
       if (name === json.locals[0]) {
         js = build.scripts.require + js; // add require impl to boot component
