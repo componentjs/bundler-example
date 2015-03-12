@@ -10,5 +10,8 @@
   "local": ["base-styles"],
   "scripts": [
     "index.js"
+  ],
+  "hbs": [
+    "home.hbs"
   ]
 }

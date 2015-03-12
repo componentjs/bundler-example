@@ -3,6 +3,7 @@
   "description": "",
   "main": "index.js",
   "scripts": ["index.js"],
+  "templates": ["core.html"],
   "local": ["user", "base-styles"],
   "dependencies": {
     "component/model": "*",

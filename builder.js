@@ -1,10 +1,22 @@
 var fs = require('fs');
 var path = require('path');
 
+var program = require('commander');
 var build = require('component-builder');
 var resolve = require('component-resolver');
 var bundler = require('component-bundler');
 var mkdir = require('mkdirp');
+var hbs = require('component-builder-handlebars');
+
+program
+  .version('0.1.0')
+  .option('-s, --standalone', 'Build standalone bundles')
+  .parse(process.argv);
+
+var hbsOptions = {
+  extname: 'hbs',
+  partialRegex: /^_/
+};
 
 // create a bundle function of type `.pages`
 // based on the `.locals` of a specific `component.json`
@@ -41,18 +53,28 @@ resolve(options.root, {
     });
     build.scripts(bundles[name])
     .use('scripts', build.plugins.js())
+    .use('templates', build.plugins.string())
+    .use('hbs', hbs(hbsOptions))
     .build(function (err, js) {
       if (!js) return;
       if (err) throw err;
-      if (name === json.locals[0]) {
-        js = build.scripts.require + js; // add require impl to boot component
-      }
+
+      var umd = program.standalone;
+
+      js = hbs.includeRuntime() + js; // add the handlebars runtime helper
       var file = path.join(options.build, name + '/build.js');
       mkdir.sync(options.build + '/' + name);
+      if (umd) {
+        js = build.scripts.umd(name, name, js);
+      } else {
+        js = build.scripts.require + js; // add require impl to boot component
+      }
+
+
       fs.writeFileSync(file, js, 'utf8');
     });
     build.files(bundles[name], {
-        destination: options.build + '/' + name
+      destination: options.build + '/' + name
     })
       .use('images', build.plugins.symlink())
       .use('files', build.plugins.symlink())
