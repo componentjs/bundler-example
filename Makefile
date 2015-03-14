@@ -4,11 +4,11 @@ SRC= $(wildcard lib/*/*.js)
 CSS= $(wildcard lib/*/*.css)
 
 
-standalone: components $(SRC) $(CSS)
-	@node builder -s
-
 bundles: components $(SRC) $(CSS)
 	@node builder
+
+standalone: components $(SRC) $(CSS)
+	@node builder -s
 
 components: $(META)
 	@component install

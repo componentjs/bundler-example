@@ -41,7 +41,9 @@ resolve(options.root, {
 
   // build each bundle
   Object.keys(bundles).forEach(function (name) {
-    build.styles(bundles[name])
+    build.styles(bundles[name], {
+        development: true
+    })
     .use('styles', build.plugins.css())
     .use('styles', build.plugins.urlRewriter())
     .build(function (err, css) {
@@ -51,7 +53,9 @@ resolve(options.root, {
       mkdir.sync(options.build + '/' + name);
       fs.writeFileSync(file, css, 'utf8');
     });
-    build.scripts(bundles[name])
+    build.scripts(bundles[name], {
+        development: true
+    })
     .use('scripts', build.plugins.js())
     .use('templates', build.plugins.string())
     .use('hbs', hbs(hbsOptions))
