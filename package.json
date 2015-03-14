@@ -24,7 +24,7 @@
   "homepage": "https://github.com/componentjs/bundler-example",
   "devDependencies": {
     "commander": "^2.7.1",
-    "component-builder": "^1.2.1",
+    "component-builder": "git://github.com/strongview/builder2.js#standalone/require",
     "component-builder-handlebars": "^0.4.0",
     "component-bundler": "git://github.com/strongview/bundler.js#standalone/apps",
     "component-resolver": "^1.2.8",

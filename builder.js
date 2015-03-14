@@ -63,13 +63,13 @@ resolve(options.root, {
 
       var file = path.join(options.build, name + '/build.js');
       mkdir.sync(options.build + '/' + name);
+
+      js += hbs.includeRuntime(); // add the handlebars runtime helper
       if (umd) {
         js = build.scripts.umd('./lib/' + name, name, js);
       } else {
         js = build.scripts.require + js; // add require impl to boot component
       }
-      js += hbs.includeRuntime(); // add the handlebars runtime helper
-
 
       fs.writeFileSync(file, js, 'utf8');
     });
