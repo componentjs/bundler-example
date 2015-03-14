@@ -25,7 +25,7 @@ var options = {
   build: path.join(__dirname, 'build') // component build output
 }
 var json = require(path.join(options.root, 'component.json'));
-var bundle = bundler.pages(json);
+var bundle = bundler.apps(json);
 
 mkdir.sync(options.build);
 

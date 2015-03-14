@@ -3,7 +3,8 @@
   "description": "",
   "dependencies": {
     "ianstormtaylor/reset": "*",
-    "component/swipe": "*"
+    "component/swipe": "*",
+    "yields/k": "*"
   },
   "development": {},
   "main": "index.js",
